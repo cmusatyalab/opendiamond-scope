@@ -372,7 +372,7 @@ def _main():
             for cookie in cookies:
                 cookie.verify([server], certdata)
             print("Cookies verified successfully")
-    except ScopeError as e:
+    except ScopeError:
         raise
 
 

@@ -42,12 +42,12 @@ repos:
     hooks:
       - id: yesqa
 
-#  - repo: https://github.com/PyCQA/flake8
-#    rev: 3.9.2
-#    hooks:
-#      - id: flake8
-#        name: Lint python code with flake8
-#        additional_dependencies: [flake8-bugbear]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        name: Lint python code with flake8
+        additional_dependencies: [flake8-bugbear]
 
   - repo: https://github.com/fsfe/reuse-tool
     rev: v0.13.0
