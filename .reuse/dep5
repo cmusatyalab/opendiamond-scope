@@ -1,7 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: opendiamond-scope
-Upstream-Contact: Jan Harkes <jaharkes@cs.cmu.edu>
-
-Files: poetry.lock
-Copyright: 2021 Carnegie Mellon University
-License: CC0-1.0

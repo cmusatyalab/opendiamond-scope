@@ -1,12 +1,18 @@
 #
-# The OpenDiamond Platform for Interactive Search
+#  The OpenDiamond Platform for Interactive Search
 #
-# SPDX-FileCopyrightText: 2009-2021 Carnegie Mellon University
 # SPDX-License-Identifier: EPL-1.0
+#
+#  Copyright (c) 2009-2021 Carnegie Mellon University
+#  All rights reserved.
+#
+#  This software is distributed under the terms of the Eclipse Public
+#  License, Version 1.0 which can be found in LICENSES/EPL-1.0.
+#  ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS SOFTWARE CONSTITUTES
+#  RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT
 #
 
 """Scope cookie generation, parsing, and verification."""
-from __future__ import print_function
 
 import base64
 import binascii
@@ -14,7 +20,6 @@ import os
 import re
 import textwrap
 import uuid
-from builtins import object, range, str
 from datetime import datetime, timedelta
 
 import dateutil.parser
@@ -52,7 +57,7 @@ class ScopeCookieExpired(ScopeError):
     """Scope cookie has expired."""
 
 
-class ScopeCookie(object):
+class ScopeCookie:
     def __init__(self, serial, expires, blaster, servers, scopeurls, data, signature):
         """Do not call this directly; use generate() or parse() instead."""
         assert isinstance(data, str)
@@ -164,7 +169,7 @@ class ScopeCookie(object):
         ]
         if blaster is not None:
             headers.append(("Blaster", blaster))
-        hdrbuf = "".join("{}: {}\n".format(k, v) for k, v in headers)
+        hdrbuf = "".join(f"{k}: {v}\n" for k, v in headers)
         data = hdrbuf + "\n" + "\n".join(scopeurls) + "\n"
         # Load the signing key
         key = EVP.load_key_string(keydata)  # expects bytes, not str
@@ -362,13 +367,13 @@ def _main():
         certfile = os.path.expanduser(os.path.join("~", ".diamond", "CERTS"))
 
     try:
-        data = open(filename, "rt").read()
+        data = open(filename).read()
         assert isinstance(data, str)
         cookies = [ScopeCookie.parse(c) for c in ScopeCookie.split(data)]
         print("\n\n".join([str(c) for c in cookies]))
 
         if server is not None:
-            certdata = open(certfile, "rt").read()
+            certdata = open(certfile).read()
             for cookie in cookies:
                 cookie.verify([server], certdata)
             print("Cookies verified successfully")

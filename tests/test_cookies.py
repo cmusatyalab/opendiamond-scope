@@ -1,5 +1,5 @@
 #
-# The OpenDiamond Platform for Interactive Search
+#  The OpenDiamond Platform for Interactive Search
 #
 # SPDX-FileCopyrightText: 2009-2021 Carnegie Mellon University
 # SPDX-License-Identifier: EPL-1.0
@@ -10,7 +10,6 @@ import binascii
 import textwrap
 import unittest
 import uuid
-from builtins import object, str
 from datetime import datetime, timedelta
 
 from dateutil.tz import tzutc
@@ -21,7 +20,7 @@ from opendiamond.scope import ScopeCookie, ScopeError
 
 # unittest uses Java-style naming conventions
 # pylint: disable=invalid-name
-class KeyPair(object):
+class KeyPair:
     def __init__(self, key, cert):
         self.key = key
         self.cert = cert
@@ -226,9 +225,7 @@ class _TestHandGeneratedCookie(_TestScope):
             headers["Expires"] = self.expires
         if self.serverids is not None:
             headers["Servers"] = ";".join(self.serverids)
-        hdrbuf = "".join(
-            "{}: {}\n".format(key, value) for key, value in headers.items()
-        )
+        hdrbuf = "".join(f"{key}: {value}\n" for key, value in headers.items())
         data = hdrbuf + "\n" + "\n".join(self.scopeurls) + "\n"
         key = EVP.load_key_string(self.key.encode())
         key.sign_init()

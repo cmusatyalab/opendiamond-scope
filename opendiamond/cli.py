@@ -9,14 +9,10 @@ import click
 from click_plugins import with_plugins
 from pkg_resources import iter_entry_points
 
+from opendiamond.console.options import CONTEXT_SETTINGS
+
 
 @with_plugins(iter_entry_points("opendiamond.cli_plugins"))
-@click.group()
+@click.group(context_settings=CONTEXT_SETTINGS)
 def cli():
     """Commandline interface for manipulating and validating OpenDiamond scopes."""
-
-
-@cli.command()
-def test():
-    """Test CLI"""
-    print("Hello World")
