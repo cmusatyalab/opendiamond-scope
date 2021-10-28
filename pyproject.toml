@@ -37,7 +37,6 @@ pytest = "^5.2"
 tox = "^3.24.4"
 
 [tool.poetry.scripts]
-opendiamond = 'opendiamond.cli:cli'
 opendiamond-scope = 'opendiamond.console.scope:cli'
 cookiecutter = 'opendiamond.console.scope_generate:generate'
 diamond-newscope = 'opendiamond.console.scope:import_'
