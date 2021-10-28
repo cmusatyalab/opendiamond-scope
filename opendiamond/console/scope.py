@@ -87,7 +87,7 @@ def import_(scope):
 
     # make sure application directory is not publically readable
     if app_dir.stat().st_mode & 0o077:
-        click.echo(f"Restricting access to {app_dir}.", err=True)
+        click.echo(f"Making sure {app_dir} is not publically readable.", err=True)
         app_dir.chmod(0o700)
 
     now = datetime.now(tzutc())
@@ -118,7 +118,7 @@ def install(prefix):
         dirpath = filepath.parent
 
         click.echo(f"Making sure {dirpath} exists")
-        dirpath.mkdir(exist_ok=True)
+        dirpath.mkdir(parents=True, exist_ok=True)
 
         click.echo(f"Creating {filepath}")
         filepath.write_text(content)
