@@ -8,7 +8,9 @@ Library and tools for manipulating OpenDiamond search scopes.
 
 # Building from source
 
-Build depends on swig to build the M2Crypto wheels.
+Build depends on SWIG and OpenSSL to build the M2Crypto wheels.
 
-    poetry install -v
-    poetry run ...
+    sudo apt install swig libssl-dev
+
+    poetry install
+    poetry run opendiamond-scope -h
