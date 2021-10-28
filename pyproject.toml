@@ -19,10 +19,6 @@ include = [
     { path = "LICENSES", format = "sdist" },
     { path = "tests", format = "sdist" },
 ]
-#exclude = [
-#    "**/*.pyc",
-#    "**/*.pyi",
-#]
 
 [tool.poetry.dependencies]
 python = ">=3.6.1,<4.0"
