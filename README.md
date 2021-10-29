@@ -1,6 +1,3 @@
-[//]: <> SPDX-FileCopyrightText: 2021 Carnegie Mellon University
-[//]: <> SPDX-License-Identifier: CC0-1.0
-
 # Opendiamond-scope
 
 Library and tools for manipulating OpenDiamond search scopes.
