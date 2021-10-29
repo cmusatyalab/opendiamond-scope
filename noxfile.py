@@ -19,7 +19,7 @@ def release(session):
     """Tag and commit a new release version"""
     part = session.posargs[0] if session.posargs else "patch"
 
-    session.run("bump2version", "--tag", "--sign-tags", part)
+    session.run("bump2version", "--tag", part)
     session.run("poetry", "build")
     session.notify("test")
 
