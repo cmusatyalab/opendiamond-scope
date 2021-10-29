@@ -18,6 +18,7 @@ import click
 from .scope_generate import generate
 from .scope_import import import_, install, uninstall
 from .scope_options import CONTEXT_SETTINGS
+from .scope_verify import verify
 
 
 @click.group("scope", context_settings=CONTEXT_SETTINGS)
@@ -29,3 +30,4 @@ cli.add_command(generate)
 cli.add_command(import_)
 cli.add_command(install)
 cli.add_command(uninstall)
+cli.add_command(verify)
