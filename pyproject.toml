@@ -14,7 +14,7 @@ authors = [
 ]
 license = "EPL-1.0"
 homepage = "https://diamond.cs.cmu.edu"
-#repository = "https://github.com/cmusatyalab/opendiamond-scope"
+repository = "https://github.com/cmusatyalab/opendiamond-scope"
 
 packages = [
     { include = "opendiamond" },
