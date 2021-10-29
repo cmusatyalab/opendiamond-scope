@@ -11,7 +11,7 @@
 #  ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS SOFTWARE CONSTITUTES
 #  RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT
 #
-"""Common arguments and option for opendiamond CLI applications"""
+"""Common arguments and options for opendiamond CLI applications"""
 
 import pathlib
 

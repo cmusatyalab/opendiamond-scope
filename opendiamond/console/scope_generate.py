@@ -22,7 +22,7 @@ import click
 from dateutil.tz import tzutc
 
 from ..scope import ScopeCookie
-from .options import CONTEXT_SETTINGS
+from .scope_options import CONTEXT_SETTINGS
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)

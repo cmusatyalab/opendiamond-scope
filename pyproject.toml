@@ -4,13 +4,16 @@
 [tool.poetry]
 name = "opendiamond-scope"
 version = "10.1.2"
-description = "Opendiamond scope manipulation library and tools"
+description = "OpenDiamond scope manipulation library and tools"
 authors = [
+    "Carnegie Mellon University <diamond@cs.cmu.edu>",
     "Benjamin Gilbert <bgilbert@cs.cmu.edu>",
     "Jan Harkes <jaharkes@cs.cmu.edu>",
     "Ziqiang Feng <zf@cs.cmu.edu>",
 ]
-license = "EPL-1.0"
+license = "Eclipse Public License, Version 1.0"
+homepage = "https://diamond.cs.cmu.edu"
+#repository = "https://github.com/cmusatyalab/opendiamond-scope"
 
 packages = [
     { include = "opendiamond" },
@@ -35,7 +38,7 @@ tox = "^3.24.4"
 [tool.poetry.scripts]
 opendiamond-scope = 'opendiamond.console.scope:cli'
 cookiecutter = 'opendiamond.console.scope_generate:generate'
-diamond-newscope = 'opendiamond.console.scope:import_'
+diamond-newscope = 'opendiamond.console.scope_import:import_'
 
 [tool.poetry.plugins."opendiamond.cli_plugins"]
 scope = 'opendiamond.console.scope:cli'
