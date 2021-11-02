@@ -13,6 +13,7 @@
 #
 """Functions to assist with handling application/x-diamond-scope files"""
 
+import os
 import subprocess
 import sys
 import tempfile
@@ -84,21 +85,22 @@ def import_(scope):
 
     now = datetime.now(tzutc())
 
-    newscope_fh, newscope_tmp = tempfile.mkstemp(dir=app_dir, text=True)
-    for scopefile in scope:
-        # validate that the scopes are correctly formatted and not expired.
-        # we can't validate if the signatures/servers/scopes are correct.
-        try:
-            megacookie = scopefile.read_text()
-            for cookie in ScopeCookie.split(megacookie):
-                parsed = ScopeCookie.parse(cookie)
-                if parsed.expires < now:
-                    raise ScopeCookieExpired(f"Cookie expired on {parsed.expires}")
+    newscope_fd, newscope_tmp = tempfile.mkstemp(dir=app_dir, text=True)
+    with os.fdopen(newscope_fd, "w") as newscope_fh:
+        for scopefile in scope:
+            # validate that the scopes are correctly formatted and not expired.
+            # we can't validate if the signatures/servers/scopes are correct.
+            try:
+                megacookie = scopefile.read_text()
+                for cookie in ScopeCookie.split(megacookie):
+                    parsed = ScopeCookie.parse(cookie)
+                    if parsed.expires < now:
+                        raise ScopeCookieExpired(f"Cookie expired on {parsed.expires}")
 
-                # passed validation, append to NEWSCOPE
-                newscope_fh.write(cookie)
-        except ScopeError as exception:
-            click.echo(f"Unabled to read {scopefile}: {str(exception)}", err=True)
+                    # passed validation, append to NEWSCOPE
+                    newscope_fh.write(cookie)
+            except ScopeError as exception:
+                click.echo(f"Unabled to read {scopefile}: {str(exception)}", err=True)
 
     # and replace the NEWSCOPE file with the new scope
     Path(newscope_tmp).replace(app_dir / "NEWSCOPE")
