@@ -3,7 +3,7 @@
 
 [tool.poetry]
 name = "opendiamond-scope"
-version = "10.1.3.post.dev"
+version = "10.1.4"
 description = "OpenDiamond scope manipulation library and tools"
 readme = "README.md"
 authors = [
