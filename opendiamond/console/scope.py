@@ -22,6 +22,7 @@ from .scope_verify import verify
 
 
 @click.group("scope", context_settings=CONTEXT_SETTINGS)
+@click.version_option(package_name="opendiamond-scope")
 def cli():
     """Scope handling related functions"""
 
