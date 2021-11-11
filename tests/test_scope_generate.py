@@ -38,7 +38,7 @@ def test_generate_invalid_keyfile_option(isolated_runner):
     result = isolated_runner.invoke(cli, opts)
     assert result.exit_code == 1
     assert result.exception
-    assert "Unable to read private key" in str(result.exception)
+    assert "Could not deserialize key data" in str(result.exception)
 
 
 def test_generate_valid_keyfile_option(isolated_runner):

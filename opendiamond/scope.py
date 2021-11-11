@@ -23,8 +23,10 @@ import uuid
 from datetime import datetime, timedelta
 
 import dateutil.parser
+from cryptography import exceptions, x509
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding
 from dateutil.tz import tzutc
-from M2Crypto import EVP, X509
 
 # Scope cookie format:
 #
@@ -118,25 +120,36 @@ class ScopeCookie:
         end = "-----END CERTIFICATE-----"  # no trailing newline
         certdata = re.findall(begin + BASE64_RE + end, certdata)
         # Load certificates
-        certs = [X509.load_cert_string(cd) for cd in certdata]
+        certs = [x509.load_pem_x509_certificate(cd.encode()) for cd in certdata]
         # Find a certificate that verifies the signature
         failure = "Couldn't validate scope cookie signature"
         for cert in certs:
             # Check the signature
-            key = cert.get_pubkey()
-            key.verify_init()
-            key.verify_update(self.data.encode())
-            if key.verify_final(self.signature) != 1:
+            key = cert.public_key()
+            try:
+                key.verify(
+                    self.signature,
+                    self.data.encode(),
+                    padding.PSS(
+                        mgf=padding.MGF1(hashes.SHA256()),
+                        salt_length=padding.PSS.MAX_LENGTH,
+                    ),
+                    hashes.SHA256(),
+                )
+            except exceptions.InvalidSignature:
                 # Signature does not match certificate
                 continue
+
             # Signature valid; now check the certificate
-            if cert.verify() != 1:
-                failure = "Scope cookie signed by invalid certificate"
-                continue
-            if cert.get_not_before().get_datetime() > now:
+            # What are we actually verifying here? We got certdata from the
+            # local disk/trust store.
+            # if cert.verify() != 1:
+            #    failure = "Scope cookie signed by invalid certificate"
+            #    continue
+            if cert.not_valid_before.replace(tzinfo=tzutc()) > now:
                 failure = "Scope cookie signed by postdated certificate"
                 continue
-            if cert.get_not_after().get_datetime() < now:
+            if cert.not_valid_after.replace(tzinfo=tzutc()) < now:
                 failure = "Scope cookie signed by expired certificate"
                 continue
             # We have a match
@@ -172,11 +185,18 @@ class ScopeCookie:
         hdrbuf = "".join(f"{k}: {v}\n" for k, v in headers)
         data = hdrbuf + "\n" + "\n".join(scopeurls) + "\n"
         # Load the signing key
-        key = EVP.load_key_string(keydata)  # expects bytes, not str
+        key = serialization.load_pem_private_key(
+            keydata, password=None
+        )  # expects bytes, not str
         # Sign the data
-        key.sign_init()
-        key.sign_update(data.encode())
-        sig = key.sign_final()
+        sig = key.sign(
+            data.encode(),
+            padding.PSS(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH,
+            ),
+            hashes.SHA256(),
+        )
         # Return the scope cookie
         return cls(serial, expires, blaster, servers, scopeurls, data, sig)
 

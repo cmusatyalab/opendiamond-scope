@@ -12,8 +12,9 @@ import unittest
 import uuid
 from datetime import datetime, timedelta
 
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding
 from dateutil.tz import tzutc
-from M2Crypto import EVP
 
 from opendiamond.scope import ScopeCookie, ScopeError
 
@@ -227,10 +228,15 @@ class _TestHandGeneratedCookie(_TestScope):
             headers["Servers"] = ";".join(self.serverids)
         hdrbuf = "".join(f"{key}: {value}\n" for key, value in headers.items())
         data = hdrbuf + "\n" + "\n".join(self.scopeurls) + "\n"
-        key = EVP.load_key_string(self.key.encode())
-        key.sign_init()
-        key.sign_update(data.encode())
-        sig = key.sign_final()
+        key = serialization.load_pem_private_key(self.key.encode(), password=None)
+        sig = key.sign(
+            data.encode(),
+            padding.PSS(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH,
+            ),
+            hashes.SHA256(),
+        )
         body = self.modify_sig(binascii.hexlify(sig).decode()) + "\n" + data
         b64 = self.modify_base64(base64.b64encode(body.encode()).decode())
         return self.boundary_start + textwrap.fill(b64, 64) + "\n" + self.boundary_end

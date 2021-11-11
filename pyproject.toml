@@ -26,9 +26,9 @@ include = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.1,<4.0"
-M2Crypto = ">=0.21.1"
 python-dateutil = ">=1.5"
 click = "^8.0.3"
+cryptography = "^35.0.0"
 importlib-metadata = {version = "^4.8.1", python = "< 3.8"}
 
 [tool.poetry.dev-dependencies]
