@@ -42,11 +42,12 @@ def test_generate_invalid_keyfile_option(isolated_runner):
 
 
 def test_generate_valid_keyfile_option(isolated_runner):
-    # try with valid key file
-    opts = ["generate", "-s", "diamond.test", "-k", "key.pem", "-v"]
     with open("key.pem", "w") as keyfile:
         keyfile.write(KeyPair.valid[0].key)
 
+    # create scope file
+    opts = ["generate", "-s", "diamond.test", "-k", "key.pem", "-v"]
     result = isolated_runner.invoke(cli, opts)
+
     assert result.exit_code == 0
     assert "Servers: diamond.test" in result.output
