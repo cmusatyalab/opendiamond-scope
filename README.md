@@ -11,11 +11,6 @@ Library and tools for manipulating OpenDiamond search scopes.
 
 # Building from source
 
-The build depends on SWIG and OpenSSL to build the M2Crypto dependency, the
-following command will install this on a Debian/Ubuntu based system.
-
-    sudo apt install swig libssl-dev
-
 For development, a consistent development environment is managed with poetry.
 If you are developing locally it is recommended to set up pre-commit git hooks.
 
