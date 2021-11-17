@@ -66,7 +66,7 @@ NoDisplay=true
     type=click.Path(exists=True, dir_okay=False, path_type=Path),
 )
 def import_(scope):
-    """Combine OpenDiamond scopes into %app_dir%/NEWSCOPE.
+    """Combine OpenDiamond® scopes into %app_dir%/NEWSCOPE.
 
     Accepts one or more scope files as arguments. Normally called as a handler
     when downloading files with the application/x-diamond-scope mime type.

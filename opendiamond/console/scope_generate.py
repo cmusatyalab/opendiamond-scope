@@ -65,7 +65,7 @@ from .scope_options import CONTEXT_SETTINGS
 )
 # pylint: disable=too-many-arguments
 def generate(verbose, blaster, servers, expires, keyfile, scopeurls):
-    """Generates an OpenDiamond(R) scope cookie.
+    """Generates an OpenDiamond® scope cookie.
 
     If no --scopeurl option is given, the list of scope URLs will be read
     from stdin.
