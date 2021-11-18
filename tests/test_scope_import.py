@@ -11,7 +11,7 @@ from pathlib import Path
 import click
 from click.testing import CliRunner
 
-from opendiamond.console.scope import cli
+from opendiamond.scope.cli import cli
 
 
 # Test opendiamond-scope import

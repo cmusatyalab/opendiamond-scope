@@ -23,8 +23,8 @@ from pathlib import Path
 import click
 from dateutil.tz import tzutc
 
-from ..scope import ScopeCookie, ScopeCookieExpired, ScopeError
-from .scope_options import CONTEXT_SETTINGS, prefix_option
+from . import ScopeCookie, ScopeCookieExpired, ScopeError
+from .cli_options import CONTEXT_SETTINGS, prefix_option
 
 # diamond scope mime.xml and .desktop related paths
 SCOPE_CONFIG_FILES = [

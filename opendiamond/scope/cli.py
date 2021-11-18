@@ -15,10 +15,10 @@
 
 import click
 
-from .scope_generate import generate
-from .scope_import import import_, install, uninstall
-from .scope_options import CONTEXT_SETTINGS
-from .scope_verify import verify
+from .cli_generate import generate
+from .cli_import import import_, install, uninstall
+from .cli_options import CONTEXT_SETTINGS
+from .cli_verify import verify
 
 
 @click.group("scope", context_settings=CONTEXT_SETTINGS)

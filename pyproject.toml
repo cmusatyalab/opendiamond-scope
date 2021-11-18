@@ -39,12 +39,12 @@ nox-poetry = "^0.8.6"
 bump2version = "^1.0.1"
 
 [tool.poetry.scripts]
-opendiamond-scope = 'opendiamond.console.scope:cli'
-cookiecutter = 'opendiamond.console.scope_generate:generate'
-diamond-newscope = 'opendiamond.console.scope_import:import_'
+opendiamond-scope = 'opendiamond.scope.cli:cli'
+cookiecutter = 'opendiamond.scope.cli_generate:generate'
+diamond-newscope = 'opendiamond.scope.cli_import:import_'
 
 [tool.poetry.plugins."opendiamond.cli_plugins"]
-scope = 'opendiamond.console.scope:cli'
+scope = 'opendiamond.scope.cli:cli'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

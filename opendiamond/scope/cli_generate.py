@@ -21,8 +21,8 @@ from datetime import datetime, timedelta
 import click
 from dateutil.tz import tzutc
 
-from ..scope import ScopeCookie
-from .scope_options import CONTEXT_SETTINGS
+from . import ScopeCookie
+from .cli_options import CONTEXT_SETTINGS
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)

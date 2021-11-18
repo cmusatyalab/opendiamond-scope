@@ -7,7 +7,7 @@
 
 from click.testing import CliRunner
 
-from opendiamond.console.scope import cli
+from opendiamond.scope.cli import cli
 
 from .test_cookies import KeyPair
 

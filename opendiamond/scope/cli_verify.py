@@ -17,8 +17,8 @@ from pathlib import Path
 
 import click
 
-from ..scope import ScopeCookie, ScopeError
-from .scope_options import CONTEXT_SETTINGS
+from . import ScopeCookie, ScopeError
+from .cli_options import CONTEXT_SETTINGS
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
