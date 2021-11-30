@@ -14,6 +14,7 @@
 """Functions to assist with handling application/x-diamond-scope files"""
 
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -51,7 +52,7 @@ Version=1.0
 Type=Application
 MimeType=application/x-diamond-scope;
 Name=Diamond Scope Handler
-Exec=opendiamond-scope import %F
+Exec={opendiamond_scope} import %F
 NoDisplay=true
 """,
     ),
@@ -110,6 +111,10 @@ def import_(scope):
 @prefix_option
 def install(prefix):
     """Installs mime-type handler for application/x-diamond-scope files."""
+    opendiamond_scope = shutil.which("opendiamond-scope")
+    if opendiamond_scope is None:
+        raise click.UsageError("Unable to find path to opendiamond-scope binary")
+
     for path, content in SCOPE_CONFIG_FILES:
         filepath = prefix / path
         dirpath = filepath.parent
@@ -118,7 +123,7 @@ def install(prefix):
         dirpath.mkdir(parents=True, exist_ok=True)
 
         click.echo(f"Creating {filepath}")
-        filepath.write_text(content)
+        filepath.write_text(content.format(opendiamond_scope=opendiamond_scope))
 
     update_mime_desktop_databases(prefix)
 
