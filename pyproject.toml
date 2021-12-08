@@ -37,6 +37,7 @@ pytest = "^5.2"
 nox = "^2021.10.1"
 nox-poetry = "^0.8.6"
 bump2version = "^1.0.1"
+invoke = "^1.6.0"
 
 [tool.poetry.scripts]
 opendiamond-scope = 'opendiamond.scope.cli:cli'
