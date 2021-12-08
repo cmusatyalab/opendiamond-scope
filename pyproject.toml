@@ -17,7 +17,7 @@ homepage = "https://diamond.cs.cmu.edu"
 repository = "https://github.com/cmusatyalab/opendiamond-scope"
 
 packages = [
-    { include = "opendiamond" },
+    { include = "opendiamond", from = "src" },
 ]
 include = [
     { path = "LICENSES", format = "sdist" },
