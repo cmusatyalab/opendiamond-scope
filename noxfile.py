@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2021 Carnegie Mellon University
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: 0BSD
 
 import nox
 import nox_poetry
