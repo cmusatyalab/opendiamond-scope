@@ -7,9 +7,18 @@ from invoke import task
 
 
 @task
+def update_dependencies(c):
+    """Update python package dependencies"""
+    c.run("poetry update")
+    c.run("poetry run pre-commit autoupdate")
+    c.run("poetry run nox -s test")
+    c.run("git commit -m 'Update dependencies' poetry.lock .pre-commit-config.yaml")
+
+
+@task
 def release(c, part="patch"):
     """Tag and commit a new release version"""
-    c.run(f"bump2version --tag {part}") 
+    c.run(f"bump2version --tag {part}")
     c.run("poetry build")
     c.run("poetry run nox -s test")
 
